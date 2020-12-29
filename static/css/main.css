@@ -1,0 +1,163 @@
+/* Article - https://bitsofco.de/github-contribution-graph-css-grid/ */
+
+/* Grid-related CSS */
+
+button {
+  width: 200px;
+  height: 40px;
+  line-height: 20px;
+  border: 1px #e1e4e8 solid;
+  color: #000;
+  text-align: center;
+  background-color: #FFF;
+}
+
+.circle {
+  width: 200px;
+  height: 200px;
+  line-height: 200px;
+  border: 1px #e1e4e8 solid;
+  border-radius: 50%;
+  font-size: 50px;
+  color: #fff;
+  text-align: center;
+}
+
+:root {
+  --square-size: 30px;
+  --square-gap: 5px;
+  --week-width: calc(var(--square-size) + var(--square-gap));
+}
+
+.days { grid-area: days; }
+.squares { grid-area: squares; }
+
+.graph {
+  display: inline-grid;
+  grid-template-areas: "empty days"
+                       "empty squares";
+  grid-template-columns: auto 1fr;
+  grid-gap: 5px;
+}
+
+.days,
+.squares {
+  display: grid;
+  grid-gap: var(--square-gap);
+  grid-template-columns: repeat(7, var(--square-size));
+}
+
+.squares {
+  grid-auto-flow: row;
+  grid-auto-columns: var(--square-size);
+  grid-auto-rows: var(--square-size);
+  line-height:  var(--square-size);
+  color: #FFF;
+}
+
+/* Other styling */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 12px;
+}
+
+.graph {
+  padding: 20px;
+  border: 1px #e1e4e8 solid;
+  margin: 10px;
+}
+
+ul {
+  list-style-type: none;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.square {
+  background-color: #ebedf0;
+}
+
+.progress-0 {
+  background-color: #F3FFF2;
+}
+
+.progress-1 {
+  background-color: #E7FFE3;
+}
+
+.progress-2 {
+  background-color: #DAFED5;
+}
+
+.progress-3 {
+  background-color: #C0FDB8;
+}
+
+.progress-4 {
+  background-color: #A7FB9C;
+}
+
+.progress-5 {
+  background-color: #8EF980;
+}
+
+.progress-6 {
+  background-color: #77F767;
+}
+
+.progress-7 {
+  background-color: #62F450;
+}
+
+.progress-8 {
+  background-color: #50F03C;
+}
+
+.progress-9 {
+  background-color: #3FEC2A;
+}
+
+.progress-10 {
+  background-color: #31E61A;
+}
+
+.progress-11 {
+  background-color: #24E10D;
+}
+
+.progress-12 {
+  background-color: #19DA03;
+}
+
+.progress-13 {
+  background-color: #16D200;
+}
+
+.progress-14 {
+  background-color: #14CA00;
+}
+
+.progress-15 {
+  background-color: #13C000;
+}
+
+.progress-16 {
+  background-color: #11B600;
+}
+
+.progress-17 {
+  background-color: #10AA00;
+}
+
+.progress-18 {
+  background-color: #0E9F00;
+}
+
+.progress-19 {
+  background-color: #0D9300;
+}
+
+.progress-20 {
+  background-color: #0B8700;
+}
