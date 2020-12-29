@@ -1,5 +1,5 @@
 
-TASKS_TO_COMPLETE = 21;
+TASKS_TO_COMPLETE = 23;
 
 // ~ https://stackoverflow.com/a/3067896
 Date.prototype.mmddyyyy = function() {
