@@ -5,7 +5,7 @@ TASKS_TO_COMPLETE = 23;
 Date.prototype.mmddyyyy = function() {
   var mm = this.getMonth() + 1;
   var dd = this.getDate();
-  return [(mm>9 ? '' : '0') + mm, (dd>9 ? '' : '0') + dd, this.getFullYear()].join('/');
+  return [mm, dd, this.getFullYear()].join('/');
 };
 
 const entries = {};
@@ -18,13 +18,16 @@ var sheetrockCallback = function (error, options, response) {
     for(var i=rows.length-1;i>=1;i--){ // Last row is most recent
 	  var iteration = (rows.length-1) - i;
       var entry = rows[i].cellsArray;
-      var date = entry[0].split(" ")[0];
+      var date = entry[2] || entry[0].split(" ")[0];
       var tasksComplete = entry[1].split(",").length;
       var dayAlreadyPresent = false;
       if (!entries[date]) {
+      	console.log(date, tasksComplete);
       	entries[date] = tasksComplete;
       }
     }
+
+    console.log(entries);
 
     // Setup last 28 days
     var totalRecentTasksComplete = 0;
@@ -34,6 +37,7 @@ var sheetrockCallback = function (error, options, response) {
 		tasksComplete = entries[day.mmddyyyy()] || 0;
 		totalRecentTasksComplete += tasksComplete;
 	    const progressLevel = Math.floor(tasksComplete / TASKS_TO_COMPLETE * 20);
+	    console.log(tasksComplete, progressLevel);
 		const squares = document.getElementById('thirty-days');
 		squares.insertAdjacentHTML('beforeend', `<li class="progress-${progressLevel}">${Math.floor(tasksComplete/TASKS_TO_COMPLETE * 100)}</li>`);
 	}
@@ -61,25 +65,22 @@ var sheetrockCallback = function (error, options, response) {
 
   } else {
     console.log("Sheetrock error", error);
-	var sheetLink = prompt("Please enter the link to your google sheet.", "");
-	var formLink = prompt("Please enter the link to your form.", "");
-	setCookie('sheetLink', sheetLink, 365);
-	setCookie('formLink', formLink, 365);
+	var links = prompt("Please enter the links to your google sheet and google form.", "").split(",");
+	setCookie('sheetLink', links[0], 365);
+	setCookie('formLink', links[1], 365);
   }
 };
 
 if (getCookie('sheetLink')) {
 	sheetrock({ url: getCookie('sheetLink'), callback: sheetrockCallback });
 } else {
-	var sheetLink = prompt("Please enter the link to your google sheet.", "");
-	var formLink = prompt("Please enter the link to your form.", "");
-	setCookie('sheetLink', sheetLink, 365);
-	setCookie('formLink', formLink, 365);
-	sheetrock({ url: sheetLink, callback: sheetrockCallback });
+	var links = prompt("Please enter the links to your google sheet and google form.", "").split(",");
+	setCookie('sheetLink', links[0], 365);
+	setCookie('formLink', links[1], 365);
+	sheetrock({ url: links[0], callback: sheetrockCallback });
 }
 
 openForm = function() {
-	console.log(document.cookie)
 	window.open(getCookie('formLink'), '_blank')
 }
 
